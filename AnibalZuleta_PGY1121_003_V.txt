@@ -1,0 +1,183 @@
+import numpy as np
+
+-- variables mas listas--
+platinum = 120000
+gold = 80000
+silver = 50000
+
+l_asientos_platinum = [1,2,3,4,5,6,7,8,9,10,11,12,13,"X",15,16,17,18,19,20]
+l_asientos_gold = [21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,"X",46,47,48,49,50]
+l_asientos_silver = [51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100]
+
+l_escenario = [1,2,3,4,5,6,7,8,9,10,11,12,13,"X",15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,"X",46,47,48,49,50,
+51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,]
+
+l_escenario_reservado = [14, 45]
+
+
+arreglo = np.empty((0, 3),dtype = object)
+print(arreglo)
+
+contador = 0
+total = 0
+-- funciones --
+
+--def menu():--
+  print("1 comprar entradas") 
+  print("2 mostrar asientos")
+  print("3 ver listado de asistentes")
+  print("4 mostar ganancias totales")
+  print("5 salir")
+
+--def comprar_entradas():--
+  
+  global platinum,gold,silver,l_escenario,l_escenario_reservado,arreglo,contador,total,l_asientos_platinum,l_asientos_gold,l_asientos_silver
+    
+  while True:
+    try:
+      rut = int(input("ingrese rut: "))
+      len(str(rut)) == 9
+    except ValueError:
+      print("tipo de dato no valido")
+    
+
+    nombre = input("ingrese nombre: ")
+    
+    len(nombre) >=3
+    
+
+    print("platinum", platinum)
+    print("gold", gold)
+    print("silver", silver)
+    
+    t_vip = str(input("que tipo de vip quiere "))
+    print(f"usted selecciono:",{t_vip})
+    
+    
+    if t_vip == "platinum":
+      print(l_asientos_platinum)
+
+      asiento_reservar = int(input("asientos platinum"))
+      if asiento_reservar >=1 and asiento_reservar <=20:
+        print(f"usted a reservado el asiento",{asiento_reservar})
+      else:
+        print("tiene que estar dentro del rango 1 y 20")
+
+      l_asientos_platinum.remove(asiento_reservar)
+      l_escenario_reservado.append(asiento_reservar)
+      l_escenario_reservado.sort()
+
+
+
+
+      print("asientos disponibles ahora son: ",l_asientos_platinum)
+      print("asientos reservados: ", l_escenario_reservado)
+    else:
+      print("escoger entre rangos vip")
+
+
+    if t_vip == "gold":
+      print(l_asientos_gold)
+
+      asiento_reservar = int(input("asientos gold"))
+      if asiento_reservar >=21 and asiento_reservar <=50:
+        print(f"usted a reservado el asiento",{asiento_reservar})
+      else:
+        print("tiene que estar dentro del rango 21 y 50")
+
+      l_asientos_gold.remove(asiento_reservar)
+      l_escenario_reservado.append(asiento_reservar)
+      l_escenario_reservado.sort()
+
+
+
+      print("asientos disponibles ahora son: ",l_asientos_gold)
+      print("asientos reservados: ", l_escenario_reservado)
+
+
+    if t_vip == "silver":
+      print(l_asientos_silver)
+
+      asiento_reservar = int(input("asientos gold"))
+      if asiento_reservar >=51 and asiento_reservar <=100:
+        print(f"usted a reservado el asiento",{asiento_reservar})
+      else:
+        print("tiene que estar dentro del rango 21 y 50")
+
+      l_asientos_silver.remove(asiento_reservar)
+      l_escenario_reservado.append(asiento_reservar)
+      l_escenario_reservado.sort()
+
+
+
+      print("asientos disponibles ahora son: ",l_asientos_gold)
+      print("asientos reservados: ", l_escenario_reservado)
+
+
+
+    
+    guardar = np.array([[rut, nombre, t_vip,]], dtype = object)
+    arreglo = np.append(arreglo, guardar, axis = 0)
+    
+    contador +=1
+    print("sus datos se guardaron correctamente")
+
+
+    break
+
+--def asientos_disponibles():--
+  print("asientos platinum",l_asientos_platinum )
+  print("asientos gold",l_asientos_gold)
+  print("asientos silver",l_asientos_silver)
+  print("asientos reservados", l_escenario_reservado)
+
+--def listado_de_asistentes():--
+  
+  rut = int(input("ingrese rut a buscar"))
+  for i in range(contador):
+    if arreglo[i,0] == rut:
+      print(f"rut ingresado es: ",{arreglo[i,0]})
+      print(f"nombre ingresado es: ",{arreglo[i,1]})
+      print(f"t_vip ingresado es: ",{arreglo[i,2]})
+    else:
+      print("no encontrado")
+
+--def salir():--
+  print("espero que vuelva pronto")
+  print("1.0")
+  print("Anibal Zuleta")
+
+
+-- menu --
+
+while True:
+
+  menu()
+
+
+  try:
+    try:
+      opcion = int(input("escoger una opcion: "))
+      if opcion >=1 and opcion <=5:
+        if opcion == 1:
+          print(comprar_entradas())
+        elif opcion == 2:
+          print(asientos_disponibles())
+        elif opcion == 3:
+          print(listado_de_asistentes())
+        elif opcion == 4:
+          print(ganancia_total)
+        elif opcion == 5:
+          print(salir())
+
+          break
+        
+      else:
+        print("escoger dentro de las opciones")
+    except KeyboardInterrupt:
+      print("programa parado manualmente")
+  except ValueError:
+    print("error en tipo valor")
+
+
+
